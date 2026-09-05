@@ -1,0 +1,4 @@
+cardinality,meaning,transactions,effect_on_fact_table
+0 UPRNs,Unmatched — no PAF entry / land only / garage / incomplete address,5974,Dropped silently by an inner join
+1 UPRN,Clean one-to-one match,94112,Grain preserved
+>1 UPRN,One transaction covering several addressable locations,0,Would inflate row count on a left join — does not occur in this release

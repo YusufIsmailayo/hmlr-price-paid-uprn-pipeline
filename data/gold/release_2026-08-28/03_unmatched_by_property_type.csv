@@ -1,0 +1,6 @@
+property_type,label,transactions,share_of_all_transactions_pct,matched,unmatched,unmatched_pct,unmatched_ci_low_pct,unmatched_ci_high_pct,risk_ratio_vs_rest,risk_ratio_ci_low,risk_ratio_ci_high
+O,Other — land / garages / non-residential,6286,6.28,3546,2740,43.59,42.37,44.82,12.64,12.1,13.21
+F,Flat / maisonette,16861,16.85,14721,2140,12.69,12.2,13.2,2.76,2.62,2.9
+D,Detached,23135,23.12,22689,446,1.93,1.76,2.11,0.27,0.24,0.3
+T,Terraced,26383,26.36,26018,365,1.38,1.25,1.53,0.18,0.16,0.2
+S,Semi-detached,27421,27.4,27138,283,1.03,0.92,1.16,0.13,0.12,0.15

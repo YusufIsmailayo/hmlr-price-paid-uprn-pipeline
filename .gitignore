@@ -13,4 +13,3 @@ data/bronze/**/*.csv
 data/bronze/**/*.txt
 data/silver/**/*.parquet
 data/gold/**/*.parquet
-data/gold/**/*.csv

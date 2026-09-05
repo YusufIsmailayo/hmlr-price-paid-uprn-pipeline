@@ -16,17 +16,25 @@ from the raw files by the code in this repo.
 
 ## Status
 
-Bronze and Silver complete; the validation gate passes. Gold in progress.
+Complete. The validation gate passes and the bias question is answered —
+see [docs/findings.md](docs/findings.md).
+
+**Headline: 5.97% of transactions have no UPRN, and the gaps are not random.**
+Land, garages and non-residential property are unmatched 43.59% of the time
+against 1.03% for semi-detached houses — a risk ratio of 12.6. The new-build
+flag, by contrast, shows almost nothing on its own (6.70% vs 5.91%), and only
+reveals a sixfold effect once property type is held constant.
 
 ## Layout
 
 ```
 data/bronze/release_2026-08-28/   raw CSVs as served, plus provenance
 data/silver/release_2026-08-28/   fact, bridge, and validation.json
-data/gold/                        match-rate and bias tables
+data/gold/release_2026-08-28/     match-rate and bias tables (tracked in git)
 src/pipeline/                     numbered, runnable in order
 docs/sources.md                   sources, field specs, licensing, scope
 docs/data_dictionary.md           Silver tables, grain, assertions
+docs/findings.md                  the result, and what it cannot support
 ```
 
 Medallion pattern, pandas and Parquet, matching the other pipelines in this
@@ -39,6 +47,7 @@ pip install -r requirements.txt
 python3 src/pipeline/01_bronze_ppd_ingest.py
 python3 src/pipeline/02_bronze_reconciliation_reference.py
 python3 src/pipeline/03_silver_join.py
+python3 src/pipeline/04_gold_cuts.py
 ```
 
 Bronze downloads ~23MB and is excluded from git. Pass `--force` to re-ingest.

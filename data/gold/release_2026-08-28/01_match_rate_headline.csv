@@ -1,0 +1,3 @@
+scope,transactions,matched,unmatched,unmatched_pct
+All rows in the monthly release,101600,94112,7488,7.37
+Analysis scope (deletions excluded),100086,94112,5974,5.97

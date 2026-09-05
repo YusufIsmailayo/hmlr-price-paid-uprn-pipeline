@@ -1,0 +1,11 @@
+property_type_x_new_build,label,transactions,share_of_all_transactions_pct,matched,unmatched,unmatched_pct,unmatched_ci_low_pct,unmatched_ci_high_pct,risk_ratio_vs_rest,risk_ratio_ci_low,risk_ratio_ci_high
+Other — land / garages / non-residential · Established,Other — land / garages / non-residential · Established,6133,6.13,3445,2688,43.83,42.59,45.07,12.53,11.99,13.09
+Other — land / garages / non-residential · New build,Other — land / garages / non-residential · New build,153,0.15,101,52,33.99,26.96,41.8,5.74,4.59,7.16
+Flat / maisonette · Established,Flat / maisonette · Established,15117,15.1,13198,1919,12.69,12.17,13.23,2.66,2.53,2.8
+Flat / maisonette · New build,Flat / maisonette · New build,1744,1.74,1523,221,12.67,11.19,14.32,2.17,1.91,2.46
+Terraced · New build,Terraced · New build,867,0.87,802,65,7.5,5.93,9.44,1.26,1.0,1.59
+Semi-detached · New build,Semi-detached · New build,2083,2.08,1984,99,4.75,3.92,5.75,0.79,0.65,0.96
+Detached · New build,Detached · New build,3113,3.11,3017,96,3.08,2.53,3.75,0.51,0.42,0.62
+Detached · Established,Detached · Established,20022,20.0,19672,350,1.75,1.58,1.94,0.25,0.22,0.28
+Terraced · Established,Terraced · Established,25516,25.49,25216,300,1.18,1.05,1.32,0.15,0.14,0.17
+Semi-detached · Established,Semi-detached · Established,25338,25.32,25154,184,0.73,0.63,0.84,0.09,0.08,0.11

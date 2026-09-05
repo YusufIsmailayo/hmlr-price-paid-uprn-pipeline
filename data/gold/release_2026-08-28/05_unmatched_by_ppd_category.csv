@@ -1,0 +1,3 @@
+ppd_category_type,label,transactions,share_of_all_transactions_pct,matched,unmatched,unmatched_pct,unmatched_ci_low_pct,unmatched_ci_high_pct,risk_ratio_vs_rest,risk_ratio_ci_low,risk_ratio_ci_high
+B,B — additional price paid,18896,18.88,15237,3659,19.36,18.81,19.93,6.79,6.46,7.14
+A,A — standard price paid,81190,81.12,78875,2315,2.85,2.74,2.97,0.15,0.14,0.15
