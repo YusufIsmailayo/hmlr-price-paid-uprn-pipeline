@@ -1,6 +1,8 @@
 """
 Gold: match-rate and bias tables.
 
+Scripted equivalent of notebooks/03_gold.ipynb.
+
 The question this pipeline exists to answer is whether the sales the UPRN
 look-up cannot match are randomly distributed, and if not, in which direction
 and by how much. HMLR publishes no official match rate, so every figure here
@@ -121,6 +123,9 @@ def mantel_haenszel(df: pd.DataFrame, exposure: str, positive: str, stratify_by:
             "exposed_n": n1, "exposed_unmatched_pct": round(100 * a / n1, 2),
             "unexposed_n": n0, "unexposed_unmatched_pct": round(100 * b / n0, 2),
             "stratum_risk_ratio": round((a / n1) / (b / n0), 2) if b else None,
+            # Unrounded, for Cochran's Q — taking the log of the 2-dp display
+            # value shifts Q by about a point.
+            "_log": math.log((a / n1) / (b / n0)) if (a and b) else None,
             "_var": (1 / a - 1 / n1 + 1 / b - 1 / n0) if (a and b) else None,
         })
         if strata[-1]["_var"] is not None:
@@ -136,8 +141,7 @@ def mantel_haenszel(df: pd.DataFrame, exposure: str, positive: str, stratify_by:
     # if the strata are estimating the same effect; if Q rejects, the pooled
     # figure is an average of things that genuinely differ and the
     # stratum-specific table is the honest presentation.
-    logs = [(math.log(s["stratum_risk_ratio"]), s["_var"])
-            for s in strata if s["stratum_risk_ratio"]]
+    logs = [(s["_log"], s["_var"]) for s in strata if s["_log"] is not None]
     weights = [1 / v for _, v in logs]
     pooled_iv = sum(w * l for (l, _), w in zip(logs, weights)) / sum(weights)
     q = sum(w * (l - pooled_iv) ** 2 for (l, _), w in zip(logs, weights))
@@ -145,6 +149,7 @@ def mantel_haenszel(df: pd.DataFrame, exposure: str, positive: str, stratify_by:
     q_p = float(chi2.sf(q, dof)) if dof else float("nan")
     for s in strata:
         s.pop("_var", None)
+        s.pop("_log", None)
 
     ratios = [s["stratum_risk_ratio"] for s in strata if s["stratum_risk_ratio"]]
     return {

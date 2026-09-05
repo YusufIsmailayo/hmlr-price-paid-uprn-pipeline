@@ -74,7 +74,7 @@ rate up; flats are over-represented among new builds and are equally unmatched
 either way.
 
 **But the strata do not agree, and that rules out a single adjusted number.**
-Cochran's Q = 331.4 on 4 df, p ≈ 1.8×10⁻⁷⁰. Stratum risk ratios run from 0.78
+Cochran's Q = 332.6 on 4 df, p ≈ 1.0×10⁻⁷⁰. Stratum risk ratios run from 0.78
 to 6.54 — the effect is not merely confounded, it is *modified* by property
 type, reversing direction between houses and land.
 

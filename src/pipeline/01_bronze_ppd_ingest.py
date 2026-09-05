@@ -2,6 +2,8 @@
 Bronze ingest for HM Land Registry Price Paid Data and the Transaction unique
 identifier / UPRN Look Up Table.
 
+Scripted equivalent of notebooks/01_bronze.ipynb.
+
 Downloads the two CSVs published together on 28 August 2026 and stamps each
 with a SHA-256, the server's Last-Modified header and byte/line counts, into
 one directory per monthly release.

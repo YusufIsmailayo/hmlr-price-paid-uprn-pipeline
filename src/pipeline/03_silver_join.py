@@ -2,6 +2,8 @@
 Silver: type the Bronze CSVs, join the UPRN look-up, assert the grain, and
 run the validation gate.
 
+Scripted equivalent of notebooks/02_silver.ipynb.
+
 Two tables come out, and the split is the whole point:
 
   fct_transaction        one row per transaction unique identifier. Carries

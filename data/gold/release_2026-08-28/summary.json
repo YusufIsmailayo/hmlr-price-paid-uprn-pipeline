@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-09-05T23:33:21+00:00",
+  "built_at_utc": "2026-09-05T23:55:15+00:00",
   "release_slug": "release_2026-08-28",
   "analysis_rows": 100086,
   "deletions_excluded": 1514,
@@ -51,9 +51,9 @@
       "ci_low": 1.336,
       "ci_high": 1.579,
       "heterogeneity": {
-        "cochran_q": 331.4,
+        "cochran_q": 332.6,
         "dof": 4,
-        "p_value": 1.8256007423503545e-70,
+        "p_value": 1.0240127304540851e-70,
         "stratum_risk_ratio_min": 0.78,
         "stratum_risk_ratio_max": 6.54,
         "pooling_appropriate": false,

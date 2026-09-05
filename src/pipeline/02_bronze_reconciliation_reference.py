@@ -1,6 +1,8 @@
 """
 Bronze capture of the publisher's own figures, for the validation gate.
 
+Scripted equivalent of notebooks/01_bronze.ipynb.
+
 The gate is: rebuild HM Land Registry's own transaction count from our
 extraction and confirm it matches. That requires an independently published
 figure to match *against*, captured at ingest time with its provenance.

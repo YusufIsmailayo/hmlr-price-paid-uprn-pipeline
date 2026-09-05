@@ -5,16 +5,13 @@
   "data_month": "2026-07",
   "publication_schedule": "20th working day of each month",
   "licence": "Open Government Licence v3.0",
-  "downloaded_at_utc": "2026-09-05T23:06:32+00:00",
+  "downloaded_at_utc": "2026-09-05T23:54:06+00:00",
   "retention_note": "HMLR retains only the latest version of each of these files. Both URLs are stable and overwritten in place, so this Bronze copy is not reproducible from the source after the next release.",
   "files": [
     {
       "filename": "pp-monthly-update-new-version.csv",
       "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-monthly-update-new-version.csv",
-      "description": "Price Paid Data monthly update, 'new version' format (16 fields, including the Record Status column absent from the complete file). A delta, not a snapshot: additions, changes and deletions applied in this publication cycle, with transfer dates running back to 1995.",
-      "attribution": [
-        "Contains HM Land Registry data \u00a9 Crown copyright and database right 2026. This data is licensed under the Open Government Licence v3.0."
-      ],
+      "description": "Price Paid Data monthly update, 'new version' format \u2014 16 fields, including the Record Status column the complete file doesn't have.",
       "http_last_modified": "Fri, 28 Aug 2026 05:12:46 GMT",
       "http_etag": "\"3731ebec455c0f63d080ba37558d1e66-3\"",
       "content_type": "text/csv",
@@ -25,11 +22,7 @@
     {
       "filename": "pp-uprn-lookup-jul-2026.csv",
       "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-uprn-lookup-jul-2026.csv",
-      "description": "Transaction unique identifier and UPRN Look Up Table. Two fields, no header: 38-character braced transaction unique identifier, and UPRN (12 digits max). Covers the transactions in the monthly update published on the same date. The month in the filename is the data month, not the publication month.",
-      "attribution": [
-        "Contains HM Land Registry data \u00a9 Crown copyright and database right 2026. This data is licensed under the Open Government Licence v3.0.",
-        "UPRNs contain OS data \u00a9 Crown copyright and database rights 2026. This data is licensed under the Open Government Licence v3.0."
-      ],
+      "description": "Transaction unique identifier and UPRN Look Up Table \u2014 two fields, no header: the 38-character braced identifier, and a UPRN.",
       "http_last_modified": "Fri, 28 Aug 2026 05:12:48 GMT",
       "http_etag": "\"37b8ab5d967754e3d9bb15f08c9c4eba\"",
       "content_type": "text/csv",

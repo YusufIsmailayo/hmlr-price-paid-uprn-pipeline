@@ -1,5 +1,5 @@
 {
-  "captured_at_utc": "2026-09-05T23:06:37+00:00",
+  "captured_at_utc": "2026-09-05T23:54:06+00:00",
   "linked_data": {
     "endpoint": "https://landregistry.data.gov.uk/landregistry/query",
     "publisher": "HM Land Registry",
@@ -30,13 +30,12 @@
   },
   "transaction_data_reference": {
     "source_url": "https://www.gov.uk/government/news/july-2026-transaction-data",
-    "guidance_url": "https://www.gov.uk/guidance/hm-land-registry-transaction-data",
     "published_date": "2026-08-21",
     "period": "July 2026",
     "coverage": "England and Wales",
     "basis": "customer applications completed in the month, by completion date",
     "transactions_for_value": 103398,
     "total_applications_completed": 2134898,
-    "use": "context only \u2014 not a reconciliation target, see module docstring"
+    "use": "context only \u2014 not a reconciliation target"
   }
 }

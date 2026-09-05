@@ -31,7 +31,8 @@ reveals a sixfold effect once property type is held constant.
 data/bronze/release_2026-08-28/   raw CSVs as served, plus provenance
 data/silver/release_2026-08-28/   fact, bridge, and validation.json
 data/gold/release_2026-08-28/     match-rate and bias tables (tracked in git)
-src/pipeline/                     numbered, runnable in order
+notebooks/                        the working: 01 bronze, 02 silver, 03 gold
+src/pipeline/                     scripted equivalents, runnable in order
 docs/sources.md                   sources, field specs, licensing, scope
 docs/data_dictionary.md           Silver tables, grain, assertions
 docs/findings.md                  the result, and what it cannot support
@@ -42,6 +43,11 @@ Medallion pattern, pandas and Parquet, matching the other pipelines in this
 portfolio.
 
 ## Running it
+
+The notebooks in `notebooks/` are the working — each layer with the reasoning,
+the checks and the output kept inline. `src/pipeline/` holds the scripted
+equivalent of the same steps, for running the pipeline end to end without a
+kernel.
 
 ```
 pip install -r requirements.txt
