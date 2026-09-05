@@ -6,10 +6,11 @@ venv/
 .ipynb_checkpoints/
 *.egg-info/
 
-# Bronze holds raw source CSVs — keep the folders, not the payloads
-data/bronze/*
-!data/bronze/.gitkeep
-data/silver/*
-!data/silver/.gitkeep
-data/gold/*
-!data/gold/.gitkeep
+# Data payloads stay out of git; the provenance that describes them does not.
+# Bronze metadata.json / reconciliation_reference.json are the audit trail and
+# are the only record of files HMLR overwrites in place each month.
+data/bronze/**/*.csv
+data/bronze/**/*.txt
+data/silver/**/*.parquet
+data/gold/**/*.parquet
+data/gold/**/*.csv
