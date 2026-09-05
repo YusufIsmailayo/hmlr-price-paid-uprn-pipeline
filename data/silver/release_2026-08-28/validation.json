@@ -1,0 +1,77 @@
+{
+  "built_at_utc": "2026-09-05T23:12:23+00:00",
+  "bronze": {
+    "release_slug": "release_2026-08-28",
+    "files": [
+      {
+        "filename": "pp-monthly-update-new-version.csv",
+        "sha256": "f92fff441ecbeba0f4891524fc968c8d336a4dff5ecadcd3ce4fe73f500b781c"
+      },
+      {
+        "filename": "pp-uprn-lookup-jul-2026.csv",
+        "sha256": "1d05becac589365a0f87b81f06b9a79c83281a600f49267b7f18a36f91ef3254"
+      }
+    ]
+  },
+  "grain_and_cardinality": {
+    "fct_grain_unique_tuid": {
+      "rows": 101600,
+      "passed": true
+    },
+    "bridge_referential_integrity": {
+      "orphan_lookup_rows": 0,
+      "passed": true
+    },
+    "cardinality_transaction_to_uprn": {
+      "zero_uprns": 7488,
+      "one_uprn": 94112,
+      "many_uprns": 0,
+      "max_uprns_per_transaction": 1
+    },
+    "join_preserves_fct_row_count": {
+      "before": 101600,
+      "after": 101600,
+      "passed": true
+    },
+    "cardinality_uprn_to_transaction": {
+      "distinct_uprns": 92750,
+      "uprns_with_multiple_transactions": 1055,
+      "transactions_on_repeat_uprns": 2417,
+      "max_transactions_per_uprn": 7
+    },
+    "observed_domains": {
+      "duration": [
+        "F",
+        "L"
+      ]
+    }
+  },
+  "validation_gate": {
+    "endpoint": "https://landregistry.data.gov.uk/landregistry/query",
+    "reconciliation_month": "2026-07",
+    "expected": 22835,
+    "actual": 22835,
+    "passed": true,
+    "controls": [
+      {
+        "transfer_month": "2026-06",
+        "in_this_release": 27624,
+        "hmlr_linked_data_total": 46025,
+        "published_in_earlier_releases": 18401
+      },
+      {
+        "transfer_month": "2026-05",
+        "in_this_release": 4028,
+        "hmlr_linked_data_total": 46381,
+        "published_in_earlier_releases": 42353
+      },
+      {
+        "transfer_month": "2025-09",
+        "in_this_release": 8303,
+        "hmlr_linked_data_total": 80340,
+        "published_in_earlier_releases": 72037
+      }
+    ]
+  },
+  "analysis_scope_note": "is_analysis_row excludes record status D (deletions). They are unmatched by construction \u2014 the look-up covers live records only \u2014 so including them overstates the unmatched share."
+}
