@@ -1,0 +1,788 @@
+<title>Sales Without a UPRN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+
+<style>
+:root {
+  color-scheme: light;
+  --paper:      #eff1ee;
+  --panel:      #f8f9f7;
+  --ink:        #14181b;
+  --ink-2:      #5b6368;
+  --ink-3:      #838b8f;
+  --rule:       #d6dbd7;
+  --rule-soft:  #e3e7e3;
+  --series-1:   #2a78d6;
+  --series-2:   #eb6834;
+  --focus:      #2a78d6;
+
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans:  "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono:  "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper:     #131617;
+    --panel:     #1a1e20;
+    --ink:       #edf0ec;
+    --ink-2:     #98a1a5;
+    --ink-3:     #767f83;
+    --rule:      #2a3033;
+    --rule-soft: #21272a;
+    --series-1:  #3987e5;
+    --series-2:  #d95926;
+    --focus:     #3987e5;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper:     #131617;
+  --panel:     #1a1e20;
+  --ink:       #edf0ec;
+  --ink-2:     #98a1a5;
+  --ink-3:     #767f83;
+  --rule:      #2a3033;
+  --rule-soft: #21272a;
+  --series-1:  #3987e5;
+  --series-2:  #d95926;
+  --focus:     #3987e5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  margin: 0;
+  padding: 0 20px 88px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 860px; margin: 0 auto; }
+
+/* ---------- masthead ---------- */
+
+.masthead { padding: 52px 0 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(38px, 6.4vw, 60px);
+  line-height: 1.03;
+  letter-spacing: -0.018em;
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+
+.standfirst {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.3vw, 21px);
+  line-height: 1.48;
+  color: var(--ink-2);
+  margin: 0 0 8px;
+  max-width: 62ch;
+}
+.standfirst strong { color: var(--ink); font-weight: 500; }
+
+.rule-heavy { height: 2px; background: var(--ink); margin: 34px 0 0; opacity: 0.82; }
+.rule-hair  { height: 1px; background: var(--rule); border: 0; margin: 0; }
+
+/* ---------- stat tiles ---------- */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 46px;
+}
+@media (max-width: 620px) { .tiles { grid-template-columns: 1fr; } }
+
+.tile { background: var(--paper); padding: 24px 20px 22px; }
+.tile-value {
+  font-family: var(--sans);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.028em;
+  margin-bottom: 9px;
+}
+.tile-label { font-size: 13.5px; color: var(--ink-2); line-height: 1.4; }
+.tile-label b { color: var(--ink); font-weight: 600; }
+
+/* ---------- sections ---------- */
+
+.section-head {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 10px;
+}
+
+h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(24px, 3.4vw, 31px);
+  line-height: 1.16;
+  letter-spacing: -0.012em;
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+
+p { margin: 0 0 16px; max-width: 66ch; }
+p.lede { color: var(--ink-2); }
+
+figure { margin: 0 0 54px; }
+
+.fig-frame {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 22px 20px 16px;
+  margin-top: 22px;
+}
+
+.fig-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.fig-title { font-size: 15px; font-weight: 600; letter-spacing: -0.005em; }
+.fig-unit  { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.05em; }
+
+.legend { display: flex; gap: 18px; flex-wrap: wrap; margin: 12px 0 6px; }
+.legend-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--ink-2); }
+.swatch { width: 11px; height: 11px; border-radius: 2px; flex: 0 0 auto; }
+
+.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.chart-scroll { overflow-x: auto; }
+
+figcaption {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-top: 14px;
+  max-width: 68ch;
+}
+figcaption b { color: var(--ink); font-weight: 600; }
+
+.fig-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--rule-soft);
+  margin-top: 14px;
+  padding-top: 11px;
+}
+.source { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); letter-spacing: 0.03em; }
+
+button.tbl-toggle {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 5px 11px;
+  cursor: pointer;
+}
+button.tbl-toggle:hover { color: var(--ink); border-color: var(--ink-3); }
+button.tbl-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.tbl-wrap { overflow-x: auto; margin-top: 14px; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+caption { text-align: left; font-size: 12px; color: var(--ink-3); padding-bottom: 8px; }
+th, td { padding: 7px 12px 7px 0; text-align: right; border-bottom: 1px solid var(--rule-soft); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+thead th { color: var(--ink-3); font-weight: 500; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- callout ---------- */
+
+.callout {
+  border-left: 2px solid var(--series-2);
+  padding: 2px 0 2px 20px;
+  margin: 0 0 32px;
+}
+.callout p:last-child { margin-bottom: 0; }
+
+/* ---------- caveats ---------- */
+
+.caveats { border-top: 2px solid var(--ink); padding-top: 26px; margin-top: 16px; }
+.caveat-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1px; background: var(--rule); border-bottom: 1px solid var(--rule); }
+.caveat-list li { background: var(--paper); padding: 16px 0 16px; display: grid; grid-template-columns: 168px 1fr; gap: 22px; }
+@media (max-width: 620px) { .caveat-list li { grid-template-columns: 1fr; gap: 4px; } }
+.caveat-term { font-family: var(--mono); font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); padding-top: 3px; }
+.caveat-body { font-size: 14.5px; color: var(--ink-2); }
+.caveat-body b { color: var(--ink); font-weight: 600; }
+
+.colophon {
+  margin-top: 44px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+.colophon code { font-family: var(--mono); color: var(--ink-2); }
+
+/* ---------- tooltip ---------- */
+
+#tip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 40;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 3px;
+  padding: 8px 11px;
+  font-size: 12px;
+  line-height: 1.45;
+  max-width: 260px;
+  opacity: 0;
+  transition: opacity 0.09s linear;
+}
+#tip.on { opacity: 1; }
+#tip .t-name { font-weight: 600; display: block; margin-bottom: 2px; }
+#tip .t-num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">
+      <span>HM Land Registry</span><span>·</span>
+      <span>Price Paid Data</span><span>·</span>
+      <span>release of 28 August 2026</span><span>·</span>
+      <span>data month July 2026</span>
+    </p>
+
+    <h1>Sales without a UPRN</h1>
+
+    <p class="standfirst">
+      HM Land Registry's new look-up table matches most sales to a property, and
+      cannot match the rest. <strong>The failures are not randomly distributed</strong> —
+      but they fall along property type, not the new-build flag everyone expects.
+    </p>
+
+    <div class="rule-heavy"></div>
+  </header>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="tile-value">5.97%</div>
+      <div class="tile-label">of transactions have <b>no UPRN</b><br>100,086 analysed</div>
+    </div>
+    <div class="tile">
+      <div class="tile-value">43.6%</div>
+      <div class="tile-label">unmatched for <b>land and garages</b><br>against 1.0% for semi-detached</div>
+    </div>
+    <div class="tile">
+      <div class="tile-value">0</div>
+      <div class="tile-label">sales mapping to <b>more than one UPRN</b><br>the spec allows it; this month has none</div>
+    </div>
+  </div>
+
+  <section>
+    <p class="section-head">The dominant axis</p>
+    <h2>Property type decides almost everything</h2>
+    <p class="lede">
+      HM Land Registry's specification names five reasons a sale will not match:
+      land without a postal address, garages sold separately, new builds absent
+      from the Royal Mail address file, incomplete title addresses, and partial
+      transactions of larger titles. Four of those five describe property that
+      never had an addressable location to begin with — and that is exactly what
+      the data shows.
+    </p>
+
+    <figure>
+      <div class="fig-frame">
+        <div class="fig-head">
+          <span class="fig-title">Figure 1 · Unmatched share by property type</span>
+          <span class="fig-unit">% of transactions with no UPRN</span>
+        </div>
+        <div class="chart-scroll"><div id="fig1"></div></div>
+        <div class="fig-foot">
+          <span class="source">gold/03_unmatched_by_property_type.csv</span>
+          <button class="tbl-toggle" data-target="tbl1" aria-expanded="false">Show data table</button>
+        </div>
+        <div class="tbl-wrap" id="tbl1" hidden></div>
+      </div>
+      <figcaption>
+        A land or garage sale is <b>42 times</b> more likely to be unmatched than a
+        semi-detached house. Cramér's V = 0.448. Bars show the point estimate;
+        95% Wilson intervals are in the data table. "Other" covers land, garages, parking, storage and non-residential property.
+      </figcaption>
+    </figure>
+  </section>
+
+  <hr class="rule-hair">
+
+  <section style="padding-top:38px">
+    <p class="section-head">The expected finding</p>
+    <h2>The new-build flag, on its own, shows almost nothing</h2>
+    <p class="lede">
+      The intuitive story is that new builds go unmatched because the address
+      file has not caught up with them. The specification says so explicitly. Put
+      the flag on a chart by itself, though, and the two bars are nearly the same
+      height.
+    </p>
+
+    <figure>
+      <div class="fig-frame">
+        <div class="fig-head">
+          <span class="fig-title">Figure 2 · New build against established, all transactions and by property type</span>
+          <span class="fig-unit">% unmatched</span>
+        </div>
+        <div class="legend" id="leg2"></div>
+        <div class="chart-scroll"><div id="fig2"></div></div>
+        <div class="fig-foot">
+          <span class="source">gold/04, gold/06</span>
+          <button class="tbl-toggle" data-target="tbl2" aria-expanded="false">Show data table</button>
+        </div>
+        <div class="tbl-wrap" id="tbl2" hidden></div>
+      </div>
+      <figcaption>
+        Across all transactions, new builds are unmatched 6.70% of the time
+        against 5.91% for established property — a crude risk ratio of
+        <b>1.13</b> and a Cramér's V of <b>0.009</b>. At 100,086 rows the
+        difference is detectable. It is also close to nothing.
+      </figcaption>
+    </figure>
+  </section>
+
+  <hr class="rule-hair">
+
+  <section style="padding-top:38px">
+    <p class="section-head">The reveal</p>
+    <h2>Hold property type constant and a sixfold effect appears</h2>
+    <p class="lede">
+      The house rows in Figure 2 are compressed against a scale that "Other"
+      stretches to 44%. Drawn on their own scale, they separate sharply. This is
+      the address-file lag the specification describes, and it was hidden by
+      composition: "Other" makes up 6.7% of established sales but only 1.9% of
+      new builds, dragging the established rate up, while flats are
+      over-represented among new builds and unmatched at the same rate either way.
+    </p>
+
+    <figure>
+      <div class="fig-frame">
+        <div class="fig-head">
+          <span class="fig-title">Figure 3 · Houses only — note the changed scale</span>
+          <span class="fig-unit">% unmatched, 0–8%</span>
+        </div>
+        <div class="legend" id="leg3"></div>
+        <div class="chart-scroll"><div id="fig3"></div></div>
+        <div class="fig-foot">
+          <span class="source">gold/06_unmatched_by_property_type_and_new_build.csv</span>
+          <button class="tbl-toggle" data-target="tbl3" aria-expanded="false">Show data table</button>
+        </div>
+        <div class="tbl-wrap" id="tbl3" hidden></div>
+      </div>
+      <figcaption>
+        Detached, semi-detached and terraced only, on a 0–8% axis — one fifth of
+        Figure 2's range. A new-build semi is <b>6.5 times</b> more likely to be
+        unmatched than an established one.
+      </figcaption>
+    </figure>
+  </section>
+
+  <div class="callout">
+    <p>
+      <strong>The effect cannot be stated as a single number.</strong> Cochran's Q
+      on the log risk ratios is 331.4 on 4 degrees of freedom, p ≈ 1.8 × 10⁻⁷⁰.
+      The strata are not estimating one common effect — they run from 0.78 to
+      6.54 and reverse direction between houses and land. A Mantel-Haenszel
+      adjusted ratio of 1.45 can be computed, and is, but quoting it alone would
+      average a sixfold effect in houses together with no effect in flats and a
+      slightly protective one in land.
+    </p>
+  </div>
+
+  <figure>
+    <div class="fig-frame">
+      <div class="fig-head">
+        <span class="fig-title">Figure 4 · Risk of going unmatched, new build against established</span>
+        <span class="fig-unit">risk ratio, log scale, 95% CI</span>
+      </div>
+      <div class="chart-scroll"><div id="fig4"></div></div>
+      <div class="fig-foot">
+        <span class="source">gold/summary.json · Greenland–Robins variance</span>
+        <button class="tbl-toggle" data-target="tbl4" aria-expanded="false">Show data table</button>
+      </div>
+      <div class="tbl-wrap" id="tbl4" hidden></div>
+    </div>
+    <figcaption>
+      Points right of the <b>1.0</b> line mean new builds go unmatched more often.
+      Whiskers are 95% confidence intervals. The crude estimate sits almost on the
+      line; the house strata sit far right of it; land sits to the left. That
+      spread is the heterogeneity, drawn.
+    </figcaption>
+  </figure>
+
+  <hr class="rule-hair">
+
+  <section class="caveats">
+    <p class="section-head" style="margin-bottom:18px">What this cannot tell you</p>
+    <ul class="caveat-list">
+      <li>
+        <span class="caveat-term">One month only</span>
+        <span class="caveat-body">The look-up is forward-only and this is the <b>first release in existence</b>. Nothing here establishes a trend, and July is a month of registrations, not of sales.</span>
+      </li>
+      <li>
+        <span class="caveat-term">Not the back catalogue</span>
+        <span class="caveat-body">Thirty years of historic Price Paid Data carry no UPRN at all. These rates describe newly published records, not the complete file.</span>
+      </li>
+      <li>
+        <span class="caveat-term">Nothing to audit against</span>
+        <span class="caveat-body">HM Land Registry has published <b>no official match rate</b>. Every figure here comes from the repository's own extraction.</span>
+      </li>
+      <li>
+        <span class="caveat-term">Unmatched ≠ unmatchable</span>
+        <span class="caveat-body">A missing UPRN means the matching process produced no link. It does not mean the property has no UPRN.</span>
+      </li>
+      <li>
+        <span class="caveat-term">Grain runs both ways</span>
+        <span class="caveat-body">No sale maps to more than one UPRN this month, so a left join preserves the row count exactly. But <b>1,055 UPRNs carry 2 to 7 sales each</b> — anything aggregated by property double-counts.</span>
+      </li>
+    </ul>
+
+    <p class="colophon">
+      Scope: 100,086 transactions — the 101,600-row monthly release less 1,514 deletions, which are unmatched by construction.<br>
+      Validation gate: 22,835 transfers dated July 2026 reproduced against HM Land Registry's own triplestore. Match.<br>
+      Transaction identifiers are 38 characters including braces, e.g. <code>{8D2A39EB-879B-491E-91F9-2AB12DDF769C}</code>.<br>
+      Contains HM Land Registry data © Crown copyright and database right 2026. UPRNs contain OS data © Crown copyright and database rights 2026. Licensed under the Open Government Licence v3.0.<br>
+      Generated by <code>src/pipeline/05_report_figures.py</code> at 2026-09-05 23:34 UTC — every figure on this page is read from the Gold tables, none are typed by hand.
+    </p>
+  </section>
+</div>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var S1 = "var(--series-1)", S2 = "var(--series-2)";
+  var INK = "var(--ink)", INK2 = "var(--ink-2)", INK3 = "var(--ink-3)";
+  var RULE = "var(--rule-soft)";
+
+  var DATA = {"fig1":[{"label":"Other \u2014 land / garages","pct":43.59,"n":6286,"lo":42.37,"hi":44.82},{"label":"Flat / maisonette","pct":12.69,"n":16861,"lo":12.2,"hi":13.2},{"label":"Detached","pct":1.93,"n":23135,"lo":1.76,"hi":2.11},{"label":"Terraced","pct":1.38,"n":26383,"lo":1.25,"hi":1.53},{"label":"Semi-detached","pct":1.03,"n":27421,"lo":0.92,"hi":1.16}],"fig2":[{"label":"All transactions","rule":true,"est":{"pct":5.91,"n":92126,"lo":5.76,"hi":6.06},"nb":{"pct":6.7,"n":7960,"lo":6.17,"hi":7.27}},{"label":"Semi-detached","est":{"pct":0.73,"n":25338,"lo":0.63,"hi":0.84},"nb":{"pct":4.75,"n":2083,"lo":3.92,"hi":5.75}},{"label":"Terraced","est":{"pct":1.18,"n":25516,"lo":1.05,"hi":1.32},"nb":{"pct":7.5,"n":867,"lo":5.93,"hi":9.44}},{"label":"Detached","est":{"pct":1.75,"n":20022,"lo":1.58,"hi":1.94},"nb":{"pct":3.08,"n":3113,"lo":2.53,"hi":3.75}},{"label":"Flat / maisonette","est":{"pct":12.69,"n":15117,"lo":12.17,"hi":13.23},"nb":{"pct":12.67,"n":1744,"lo":11.19,"hi":14.32}},{"label":"Other \u2014 land / garages","est":{"pct":43.83,"n":6133,"lo":42.59,"hi":45.07},"nb":{"pct":33.99,"n":153,"lo":26.96,"hi":41.8}}],"fig3":[{"label":"Semi-detached","est":{"pct":0.73,"n":25338,"lo":0.63,"hi":0.84},"nb":{"pct":4.75,"n":2083,"lo":3.92,"hi":5.75}},{"label":"Terraced","est":{"pct":1.18,"n":25516,"lo":1.05,"hi":1.32},"nb":{"pct":7.5,"n":867,"lo":5.93,"hi":9.44}},{"label":"Detached","est":{"pct":1.75,"n":20022,"lo":1.58,"hi":1.94},"nb":{"pct":3.08,"n":3113,"lo":2.53,"hi":3.75}}],"fig4":[{"label":"All transactions","crude":true,"rr":1.13,"lo":1.04,"hi":1.236},{"label":"Semi-detached","rr":6.54,"lo":5.15,"hi":8.32},{"label":"Terraced","rr":6.38,"lo":4.92,"hi":8.27},{"label":"Detached","rr":1.76,"lo":1.41,"hi":2.2},{"label":"Flat / maisonette","rr":1.0,"lo":0.88,"hi":1.14},{"label":"Other \u2014 land / garages","rr":0.78,"lo":0.62,"hi":0.97}]};
+  var fig1 = DATA.fig1;
+  var fig2 = DATA.fig2;
+  var fig3 = DATA.fig3;
+  var fig4 = DATA.fig4;
+
+  // ---------- helpers ----------
+
+  var NS = "http://www.w3.org/2000/svg";
+  function el(name, attrs) {
+    var node = document.createElementNS(NS, name);
+    for (var k in attrs) if (attrs[k] !== null && attrs[k] !== undefined) node.setAttribute(k, attrs[k]);
+    return node;
+  }
+  function txt(x, y, s, o) {
+    o = o || {};
+    var t = el("text", {
+      x: x, y: y, fill: o.fill || INK2, "text-anchor": o.anchor || "start",
+      "font-size": o.size || 12, "font-weight": o.weight || 400,
+      "font-family": o.mono ? "var(--mono)" : "var(--sans)",
+      "dominant-baseline": o.baseline || "middle",
+      "letter-spacing": o.tracking || null
+    });
+    if (o.mono) t.style.fontVariantNumeric = "tabular-nums";
+    t.textContent = s;
+    return t;
+  }
+  // Bar with rounded ends only at the data end (right), flat at the baseline.
+  function barPath(x0, y, w, h, r) {
+    if (w <= 0.5) return "M" + x0 + "," + y + "h0.5v" + h + "h-0.5z";
+    r = Math.min(r, w, h / 2);
+    return "M" + x0 + "," + y +
+           "H" + (x0 + w - r) + "a" + r + "," + r + " 0 0 1 " + r + "," + r +
+           "V" + (y + h - r) + "a" + r + "," + r + " 0 0 1 " + (-r) + "," + r +
+           "H" + x0 + "z";
+  }
+  var fmtPct = function (v) { return v.toFixed(2) + "%"; };
+  var fmtN = function (v) { return v.toLocaleString("en-GB"); };
+
+  // ---------- tooltip ----------
+
+  var tip = document.getElementById("tip");
+  function showTip(evt, html) {
+    tip.innerHTML = html;
+    tip.classList.add("on");
+    moveTip(evt);
+  }
+  function moveTip(evt) {
+    var pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+    var x = evt.clientX + pad, y = evt.clientY - h - 10;
+    if (x + w > window.innerWidth - 8) x = evt.clientX - w - pad;
+    if (y < 8) y = evt.clientY + pad;
+    tip.style.left = x + "px";
+    tip.style.top = y + "px";
+  }
+  function hideTip() { tip.classList.remove("on"); }
+
+  function attachTip(node, html) {
+    node.style.cursor = "default";
+    node.addEventListener("mouseenter", function (e) { showTip(e, html); });
+    node.addEventListener("mousemove", moveTip);
+    node.addEventListener("mouseleave", hideTip);
+    node.setAttribute("tabindex", "0");
+    node.addEventListener("focus", function () {
+      var r = node.getBoundingClientRect();
+      showTip({ clientX: r.right, clientY: r.top + r.height / 2 }, html);
+    });
+    node.addEventListener("blur", hideTip);
+  }
+
+  // ---------- linear horizontal bar chart ----------
+
+  function drawBars(mountId, opts) {
+    var rows = opts.rows, max = opts.max, ticks = opts.ticks;
+    var gutter = opts.gutter || 210;
+    var W = 760, padR = 56;
+    var x0 = gutter, x1 = W - padR;
+    var barH = opts.grouped ? 15 : 21;
+    var gap = 2;                                   // surface gap between adjacent bars
+    var groupH = opts.grouped ? barH * 2 + gap : barH;
+    var rowGap = opts.grouped ? 26 : 15;
+    var top = 30;
+    var H = top + rows.length * (groupH + rowGap) + 16;
+
+    var svg = el("svg", {
+      viewBox: "0 0 " + W + " " + H, class: "chart",
+      role: "img", "aria-label": opts.aria, preserveAspectRatio: "xMinYMin meet"
+    });
+    svg.style.minWidth = "540px";
+
+    var scale = function (v) { return (v / max) * (x1 - x0); };
+
+    // axis ticks + hairline grid
+    ticks.forEach(function (t) {
+      var x = x0 + scale(t);
+      svg.appendChild(el("line", { x1: x, y1: top - 12, x2: x, y2: H - 22, stroke: RULE, "stroke-width": 1 }));
+      svg.appendChild(txt(x, top - 20, t + "%", { anchor: "middle", size: 10.5, fill: INK3, mono: true }));
+    });
+
+    rows.forEach(function (row, i) {
+      var yTop = top + i * (groupH + rowGap);
+
+      if (row.rule) {
+        svg.appendChild(el("line", {
+          x1: 0, y1: yTop + groupH + rowGap / 2 - 3, x2: W, y2: yTop + groupH + rowGap / 2 - 3,
+          stroke: "var(--rule)", "stroke-width": 1
+        }));
+      }
+
+      svg.appendChild(txt(gutter - 14, yTop + groupH / 2, row.label, {
+        anchor: "end", size: 12.5, fill: row.rule ? INK : INK2, weight: row.rule ? 600 : 400
+      }));
+
+      var series = opts.grouped
+        ? [{ d: row.est, c: S1, name: "Established" }, { d: row.nb, c: S2, name: "New build" }]
+        : [{ d: row, c: S1, name: null }];
+
+      series.forEach(function (s, k) {
+        var y = yTop + k * (barH + gap);
+        var w = scale(s.d.pct);
+        var p = el("path", { d: barPath(x0, y, w, barH, 4), fill: s.c });
+        attachTip(p, "<span class='t-name'>" + row.label + (s.name ? " · " + s.name : "") + "</span>" +
+          "<span class='t-num'>" + fmtPct(s.d.pct) + "</span> unmatched<br>" +
+          "<span class='t-num'>" + fmtPct(s.d.lo) + "–" + fmtPct(s.d.hi) + "</span> 95% CI<br>" +
+          "<span class='t-num'>" + fmtN(s.d.n) + "</span> transactions");
+        svg.appendChild(p);
+
+        svg.appendChild(txt(x0 + w + 8, y + barH / 2, fmtPct(s.d.pct), {
+          size: 11.5, fill: INK2, mono: true
+        }));
+      });
+    });
+
+    document.getElementById(mountId).appendChild(svg);
+  }
+
+  // ---------- log-scale dot plot ----------
+
+  function drawDots(mountId, rows) {
+    var gutter = 210, W = 760, padR = 56;
+    var x0 = gutter, x1 = W - padR;
+    var top = 30, rowH = 34;
+    var H = top + rows.length * rowH + 18;
+    var lo = 0.5, hi = 10;
+    var lgLo = Math.log(lo), lgHi = Math.log(hi);
+    var sx = function (v) { return x0 + (Math.log(v) - lgLo) / (lgHi - lgLo) * (x1 - x0); };
+
+    var svg = el("svg", {
+      viewBox: "0 0 " + W + " " + H, class: "chart", role: "img",
+      "aria-label": "Risk ratio of going unmatched, new build against established, by property type, on a log scale with 95% confidence intervals",
+      preserveAspectRatio: "xMinYMin meet"
+    });
+    svg.style.minWidth = "540px";
+
+    [0.5, 1, 2, 4, 8].forEach(function (t) {
+      var x = sx(t);
+      var isRef = t === 1;
+      svg.appendChild(el("line", {
+        x1: x, y1: top - 12, x2: x, y2: H - 24,
+        stroke: isRef ? "var(--ink-3)" : RULE, "stroke-width": isRef ? 1.5 : 1
+      }));
+      svg.appendChild(txt(x, top - 20, t + "×", {
+        anchor: "middle", size: 10.5, fill: isRef ? INK2 : INK3, mono: true,
+        weight: isRef ? 500 : 400
+      }));
+    });
+
+    svg.appendChild(txt(sx(1), H - 8, "no difference", { anchor: "middle", size: 10.5, fill: INK3 }));
+
+    rows.forEach(function (r, i) {
+      var y = top + i * rowH + rowH / 2 - 4;
+      var colour = r.crude ? "var(--ink-2)" : S2;
+
+      if (r.crude) {
+        svg.appendChild(el("line", {
+          x1: 0, y1: y + rowH / 2 + 2, x2: W, y2: y + rowH / 2 + 2,
+          stroke: "var(--rule)", "stroke-width": 1
+        }));
+      }
+
+      svg.appendChild(txt(gutter - 14, y, r.label, {
+        anchor: "end", size: 12.5, fill: r.crude ? INK : INK2, weight: r.crude ? 600 : 400
+      }));
+
+      svg.appendChild(el("line", {
+        x1: sx(r.lo), y1: y, x2: sx(r.hi), y2: y,
+        stroke: colour, "stroke-width": 2, "stroke-linecap": "round"
+      }));
+      // 2px surface ring so the marker reads over the whisker
+      svg.appendChild(el("circle", {
+        cx: sx(r.rr), cy: y, r: 6, fill: colour,
+        stroke: "var(--panel)", "stroke-width": 2
+      }));
+
+      var hit = el("rect", {
+        x: Math.min(sx(r.lo), sx(r.rr)) - 14, y: y - 13,
+        width: Math.abs(sx(r.hi) - sx(r.lo)) + 28, height: 26, fill: "transparent"
+      });
+      attachTip(hit, "<span class='t-name'>" + r.label + "</span>" +
+        "<span class='t-num'>" + r.rr.toFixed(2) + "×</span> risk ratio<br>" +
+        "<span class='t-num'>" + r.lo.toFixed(2) + "–" + r.hi.toFixed(2) + "</span> 95% CI");
+      svg.appendChild(hit);
+
+      svg.appendChild(txt(x1 + 8, y, r.rr.toFixed(2) + "×", { size: 11.5, fill: INK2, mono: true }));
+    });
+
+    document.getElementById(mountId).appendChild(svg);
+  }
+
+  // ---------- legends ----------
+
+  function legend(mountId) {
+    var host = document.getElementById(mountId);
+    [["Established", S1], ["New build", S2]].forEach(function (pair) {
+      var d = document.createElement("div");
+      d.className = "legend-item";
+      d.innerHTML = "<span class='swatch' style='background:" + pair[1] + "'></span>" + pair[0];
+      host.appendChild(d);
+    });
+  }
+
+  // ---------- table twins ----------
+
+  function table(mountId, caption, head, body) {
+    var host = document.getElementById(mountId);
+    var h = "<table><caption>" + caption + "</caption><thead><tr>";
+    head.forEach(function (c) { h += "<th scope='col'>" + c + "</th>"; });
+    h += "</tr></thead><tbody>";
+    body.forEach(function (row) {
+      h += "<tr>";
+      row.forEach(function (c, i) {
+        h += i === 0 ? "<th scope='row'>" + c + "</th>" : "<td class='num'>" + c + "</td>";
+      });
+      h += "</tr>";
+    });
+    host.innerHTML = h + "</tbody></table>";
+  }
+
+  // ---------- build ----------
+
+  drawBars("fig1", {
+    rows: fig1, max: 45, ticks: [0, 10, 20, 30, 40],
+    aria: "Unmatched share by property type, highest for land and garages, lowest for semi-detached houses. Values in the data table below."
+  });
+  table("tbl1", "Figure 1 — unmatched share by property type",
+    ["Property type", "Transactions", "Unmatched", "Unmatched %", "95% CI"],
+    fig1.map(function (r) {
+      return [r.label, fmtN(r.n), fmtN(Math.round(r.n * r.pct / 100)), fmtPct(r.pct), fmtPct(r.lo) + "–" + fmtPct(r.hi)];
+    }));
+
+  legend("leg2");
+  drawBars("fig2", {
+    rows: fig2, max: 45, ticks: [0, 10, 20, 30, 40], grouped: true,
+    aria: "Unmatched share, new build against established, overall and by property type, on a 0 to 45 per cent scale."
+  });
+
+  legend("leg3");
+  drawBars("fig3", {
+    rows: fig3, max: 8, ticks: [0, 2, 4, 6, 8], grouped: true,
+    aria: "Unmatched share for houses only, new build against established, on a 0 to 8 per cent scale. Values in the data table below."
+  });
+
+  var groupHead = ["Group", "Established %", "Established n", "New build %", "New build n"];
+  function groupRows(rows) {
+    return rows.map(function (r) {
+      return [r.label, fmtPct(r.est.pct), fmtN(r.est.n), fmtPct(r.nb.pct), fmtN(r.nb.n)];
+    });
+  }
+  table("tbl2", "Figure 2 — unmatched share by new-build flag and property type", groupHead, groupRows(fig2));
+  table("tbl3", "Figure 3 — houses only", groupHead, groupRows(fig3));
+
+  drawDots("fig4", fig4);
+  table("tbl4", "Figure 4 — risk ratio, new build against established",
+    ["Group", "Risk ratio", "95% CI low", "95% CI high"],
+    fig4.map(function (r) { return [r.label, r.rr.toFixed(2), r.lo.toFixed(2), r.hi.toFixed(2)]; }));
+
+  // ---------- table toggles ----------
+
+  Array.prototype.forEach.call(document.querySelectorAll(".tbl-toggle"), function (btn) {
+    btn.addEventListener("click", function () {
+      var target = document.getElementById(btn.dataset.target);
+      var open = !target.hidden;
+      target.hidden = open;
+      btn.setAttribute("aria-expanded", String(!open));
+      btn.textContent = open ? "Show data table" : "Hide data table";
+    });
+  });
+})();
+</script>

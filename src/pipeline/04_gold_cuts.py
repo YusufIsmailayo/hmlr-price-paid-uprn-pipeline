@@ -123,6 +123,11 @@ def mantel_haenszel(df: pd.DataFrame, exposure: str, positive: str, stratify_by:
             "stratum_risk_ratio": round((a / n1) / (b / n0), 2) if b else None,
             "_var": (1 / a - 1 / n1 + 1 / b - 1 / n0) if (a and b) else None,
         })
+        if strata[-1]["_var"] is not None:
+            srr = (a / n1) / (b / n0)
+            sse = math.sqrt(strata[-1]["_var"])
+            strata[-1]["stratum_rr_ci_low"] = round(srr * math.exp(-Z * sse), 2)
+            strata[-1]["stratum_rr_ci_high"] = round(srr * math.exp(Z * sse), 2)
 
     rr = numer / denom
     se = math.sqrt(var_num / (numer * denom))

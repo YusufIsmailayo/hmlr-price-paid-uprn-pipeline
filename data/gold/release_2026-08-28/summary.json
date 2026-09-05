@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-09-05T23:17:02+00:00",
+  "built_at_utc": "2026-09-05T23:33:21+00:00",
   "release_slug": "release_2026-08-28",
   "analysis_rows": 100086,
   "deletions_excluded": 1514,
@@ -66,7 +66,9 @@
           "exposed_unmatched_pct": 3.08,
           "unexposed_n": 20022,
           "unexposed_unmatched_pct": 1.75,
-          "stratum_risk_ratio": 1.76
+          "stratum_risk_ratio": 1.76,
+          "stratum_rr_ci_low": 1.41,
+          "stratum_rr_ci_high": 2.2
         },
         {
           "stratum": "F",
@@ -74,7 +76,9 @@
           "exposed_unmatched_pct": 12.67,
           "unexposed_n": 15117,
           "unexposed_unmatched_pct": 12.69,
-          "stratum_risk_ratio": 1.0
+          "stratum_risk_ratio": 1.0,
+          "stratum_rr_ci_low": 0.88,
+          "stratum_rr_ci_high": 1.14
         },
         {
           "stratum": "O",
@@ -82,7 +86,9 @@
           "exposed_unmatched_pct": 33.99,
           "unexposed_n": 6133,
           "unexposed_unmatched_pct": 43.83,
-          "stratum_risk_ratio": 0.78
+          "stratum_risk_ratio": 0.78,
+          "stratum_rr_ci_low": 0.62,
+          "stratum_rr_ci_high": 0.97
         },
         {
           "stratum": "S",
@@ -90,7 +96,9 @@
           "exposed_unmatched_pct": 4.75,
           "unexposed_n": 25338,
           "unexposed_unmatched_pct": 0.73,
-          "stratum_risk_ratio": 6.54
+          "stratum_risk_ratio": 6.54,
+          "stratum_rr_ci_low": 5.15,
+          "stratum_rr_ci_high": 8.32
         },
         {
           "stratum": "T",
@@ -98,7 +106,9 @@
           "exposed_unmatched_pct": 7.5,
           "unexposed_n": 25516,
           "unexposed_unmatched_pct": 1.18,
-          "stratum_risk_ratio": 6.38
+          "stratum_risk_ratio": 6.38,
+          "stratum_rr_ci_low": 4.92,
+          "stratum_rr_ci_high": 8.27
         }
       ]
     }
