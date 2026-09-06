@@ -116,9 +116,27 @@ the output, and re-run the script after any change to Gold.
 
 ## Licence and attribution
 
-Source data © Crown copyright, Open Government Licence v3.0. Required
-attribution statements and the Royal Mail PAF conditions on the address fields
-are set out in [docs/sources.md](docs/sources.md).
+Two different things are licensed here, and only one of them is mine to give.
+
+**The code, notebooks and documentation** are MIT — see [LICENSE](LICENSE).
+Take them, adapt them, use them.
+
+**The data is not.** Price Paid Data and the UPRN look-up are © Crown
+copyright, published by HM Land Registry under the Open Government Licence
+v3.0; the UPRNs additionally carry Ordnance Survey Crown copyright and database
+rights. I hold no rights in either and cannot relicense them. Anyone reusing
+the Gold tables in this repository inherits the OGL and its attribution
+requirement, not the MIT licence:
+
+> Contains HM Land Registry data © Crown copyright and database right 2026.
+> UPRNs contain OS data © Crown copyright and database rights 2026.
+> Licensed under the Open Government Licence v3.0.
+
+The address fields carry a further condition. They are processed against
+Ordnance Survey's AddressBase Premium, which incorporates Royal Mail's PAF
+database; use beyond personal or non-commercial purposes and the display of
+residential property price information requires Royal Mail's permission. The
+full statements are in [docs/sources.md](docs/sources.md).
 
 No personal data is used or published. Price Paid Data is property-related
 information, not personal information.
