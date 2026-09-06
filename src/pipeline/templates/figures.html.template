@@ -177,7 +177,7 @@ figure { margin: 0 0 54px; }
 .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--ink-2); }
 .swatch { width: 11px; height: 11px; border-radius: 2px; flex: 0 0 auto; }
 
-.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.chart { width: 100%; max-width: 100%; height: auto; display: block; overflow: visible; }
 .chart-scroll { overflow-x: auto; }
 
 figcaption {
@@ -585,7 +585,6 @@ td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
       viewBox: "0 0 " + W + " " + H, class: "chart",
       role: "img", "aria-label": opts.aria, preserveAspectRatio: "xMinYMin meet"
     });
-    svg.style.minWidth = "540px";
 
     var scale = function (v) { return (v / max) * (x1 - x0); };
 
@@ -649,7 +648,6 @@ td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
       "aria-label": "Risk ratio of going unmatched, new build against established, by property type, on a log scale with 95% confidence intervals",
       preserveAspectRatio: "xMinYMin meet"
     });
-    svg.style.minWidth = "540px";
 
     [0.5, 1, 2, 4, 8].forEach(function (t) {
       var x = sx(t);
