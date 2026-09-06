@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-09-05T23:54:09+00:00",
+  "built_at_utc": "2026-09-06T07:04:00+00:00",
   "bronze": {
     "release_slug": "release_2026-08-28",
     "files": [
@@ -56,20 +56,20 @@
       {
         "transfer_month": "2026-06",
         "in_this_release": 27624,
-        "hmlr_total": 46025,
-        "published_earlier": 18401
+        "hmlr_linked_data_total": 46025,
+        "published_in_earlier_releases": 18401
       },
       {
         "transfer_month": "2026-05",
         "in_this_release": 4028,
-        "hmlr_total": 46381,
-        "published_earlier": 42353
+        "hmlr_linked_data_total": 46381,
+        "published_in_earlier_releases": 42353
       },
       {
         "transfer_month": "2025-09",
         "in_this_release": 8303,
-        "hmlr_total": 80340,
-        "published_earlier": 72037
+        "hmlr_linked_data_total": 80340,
+        "published_in_earlier_releases": 72037
       }
     ]
   },

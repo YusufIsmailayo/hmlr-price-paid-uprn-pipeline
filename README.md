@@ -114,6 +114,31 @@ substituted into `src/pipeline/templates/figures.html.template`. A leftover
 placeholder raises rather than shipping. Edit the template for wording, never
 the output, and re-run the script after any change to Gold.
 
+## Tests
+
+```
+pip install -r requirements-dev.txt
+python3 -m pytest
+```
+
+48 tests, and they run on a fresh clone in under a second. The suite reads only
+what is tracked in git — the Gold tables, the Silver validation report and the
+Bronze manifest — never the payload CSVs, which are ignored and cannot be
+re-downloaded once HMLR replaces the file.
+
+They are not smoke tests. They hold the claims in `docs/findings.md` in place:
+that the gate reproduces 22,835 and the control months still diverge; that no
+transaction maps to more than one UPRN; that Cochran's Q still forbids pooling
+the strata; that property type O still sits wholly inside PPD category B; that
+no repeated UPRN carries a second PAON or SAON. If a later release breaks one
+of those, a test fails and names the section that has to be rewritten.
+
+The statistical helpers are unit-tested against hand-worked values rather than
+against their own output, and one test recomputes every published risk ratio
+from the counts in the same CSV.
+
+CI runs the suite on every push — [.github/workflows/tests.yml](.github/workflows/tests.yml).
+
 ## Licence and attribution
 
 Two different things are licensed here, and only one of them is mine to give.

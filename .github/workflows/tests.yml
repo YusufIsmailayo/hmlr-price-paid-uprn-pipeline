@@ -1,0 +1,30 @@
+name: tests
+
+# The suite reads only artefacts tracked in git — the Gold tables, the Silver
+# validation report and the Bronze manifest. It never needs the payload CSVs,
+# which are gitignored and cannot be re-downloaded once HMLR replaces them, so
+# CI runs in seconds and without network access to the source.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Run the test suite
+        run: python -m pytest
