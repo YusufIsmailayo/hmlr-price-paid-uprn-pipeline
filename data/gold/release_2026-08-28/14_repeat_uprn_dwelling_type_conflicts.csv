@@ -1,0 +1,7 @@
+property_type_pair,uprns,involves_other
+F / T,7,False
+F / S,7,False
+D / S,6,False
+S / T,6,False
+D / T,5,False
+D / F,4,False

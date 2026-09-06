@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-09-06T00:49:28+00:00",
+  "built_at_utc": "2026-09-06T10:13:33+00:00",
   "release_slug": "release_2026-08-28",
   "analysis_rows": 100086,
   "ppd_category_correction": {
@@ -32,6 +32,23 @@
   },
   "repeated_uprns": {
     "repeated_uprns": 1055,
+    "type_conflicts": {
+      "uprns_any_type_conflict": 208,
+      "uprns_conflict_involving_other": 173,
+      "uprns_dwelling_type_conflict": 35,
+      "dwelling_type_conflict_share_of_repeats_pct": 3.32,
+      "dwelling_type_pairs": {
+        "F / T": 7,
+        "F / S": 7,
+        "D / S": 6,
+        "S / T": 6,
+        "D / T": 5,
+        "D / F": 4
+      },
+      "d_o_pairs": 78,
+      "d_o_pairs_with_tied_transfer_dates": 27,
+      "note": "Other is the residual bucket, not a dwelling type. A plot sold as Other and the house later built on it sold as Detached are two correct records, so only the conflicts between two genuine dwelling types are unarguable. Transfer-date order cannot separate the innocent readings: the D/O split is near even and many share a date."
+    },
     "sales_on_repeated_uprns": 2417,
     "max_sales_on_one_uprn": 7,
     "median_span_years": 3,
@@ -40,47 +57,58 @@
     "property_type_pairs": [
       {
         "property_type_pair": "D / O",
-        "uprns": 78
+        "uprns": 78,
+        "involves_other": true
       },
       {
         "property_type_pair": "O / T",
-        "uprns": 36
+        "uprns": 36,
+        "involves_other": true
       },
       {
         "property_type_pair": "O / S",
-        "uprns": 35
+        "uprns": 35,
+        "involves_other": true
       },
       {
         "property_type_pair": "F / O",
-        "uprns": 23
+        "uprns": 23,
+        "involves_other": true
       },
       {
         "property_type_pair": "F / T",
-        "uprns": 7
+        "uprns": 7,
+        "involves_other": false
       },
       {
         "property_type_pair": "F / S",
-        "uprns": 7
+        "uprns": 7,
+        "involves_other": false
       },
       {
         "property_type_pair": "D / S",
-        "uprns": 6
+        "uprns": 6,
+        "involves_other": false
       },
       {
         "property_type_pair": "S / T",
-        "uprns": 6
+        "uprns": 6,
+        "involves_other": false
       },
       {
         "property_type_pair": "D / T",
-        "uprns": 5
+        "uprns": 5,
+        "involves_other": false
       },
       {
         "property_type_pair": "D / F",
-        "uprns": 4
+        "uprns": 4,
+        "involves_other": false
       },
       {
         "property_type_pair": "F / O / T",
-        "uprns": 1
+        "uprns": 1,
+        "involves_other": true
       }
     ]
   }

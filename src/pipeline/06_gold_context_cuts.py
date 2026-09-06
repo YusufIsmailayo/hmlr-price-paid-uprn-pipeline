@@ -236,7 +236,7 @@ def repeat_uprn_consistency(a: pd.DataFrame, bridge: pd.DataFrame) -> tuple[pd.D
 
     table = pd.DataFrame([
         row("More than one property type", grouped.distinct_property_type > 1,
-            "HMLR files the same physical property under different types"),
+            "outer bound — most involve the residual Other bucket"),
         row("More than one duration", grouped.distinct_duration > 1,
             "freehold on one sale, leasehold on another"),
         row("More than one postcode", grouped.distinct_postcode > 1, ""),
@@ -253,12 +253,43 @@ def repeat_uprn_consistency(a: pd.DataFrame, bridge: pd.DataFrame) -> tuple[pd.D
     ])
 
     inconsistent = grouped[grouped.distinct_property_type > 1].index
-    pairs = (joined[joined.uprn.isin(inconsistent)]
-             .groupby("uprn").property_type.apply(lambda s: " / ".join(sorted(set(s))))
-             .value_counts().rename_axis("property_type_pair").reset_index(name="uprns"))
+    combos = (joined[joined.uprn.isin(inconsistent)]
+              .groupby("uprn").property_type.apply(lambda s: " / ".join(sorted(set(s)))))
+    pairs = combos.value_counts().rename_axis("property_type_pair").reset_index(name="uprns")
+
+    # "Other" is not a dwelling type. It is the residual bucket for land,
+    # garages, parking and non-residential, so a plot recorded as O and the
+    # house later built on it recorded as D are two correct descriptions of
+    # different things, not the register contradicting itself. Only conflicts
+    # between two genuine dwelling types are unarguable, so they are counted
+    # separately and it is that smaller number the write-up leads on.
+    pairs["involves_other"] = pairs["property_type_pair"].str.contains("O")
+    hard = combos[~combos.str.contains("O")]
+
+    # Sequence order cannot resolve the innocent reading either way: among the
+    # D/O pairs the split between land-first and land-last is near even, and a
+    # third of them share a transfer date, so the ordering is not well defined.
+    do_uprns = combos[combos == "D / O"].index
+    do = joined[joined.uprn.isin(do_uprns)].sort_values("transfer_date")
+    tied = int(do.groupby("uprn").transfer_date.apply(lambda s: s.duplicated().any()).sum())
 
     summary = {
         "repeated_uprns": n,
+        "type_conflicts": {
+            "uprns_any_type_conflict": int(len(combos)),
+            "uprns_conflict_involving_other": int(combos.str.contains("O").sum()),
+            "uprns_dwelling_type_conflict": int(len(hard)),
+            "dwelling_type_conflict_share_of_repeats_pct": round(100 * len(hard) / n, 2),
+            "dwelling_type_pairs": hard.value_counts().to_dict(),
+            "d_o_pairs": int(len(do_uprns)),
+            "d_o_pairs_with_tied_transfer_dates": tied,
+            "note": ("Other is the residual bucket, not a dwelling type. A plot sold "
+                     "as Other and the house later built on it sold as Detached are "
+                     "two correct records, so only the conflicts between two genuine "
+                     "dwelling types are unarguable. Transfer-date order cannot "
+                     "separate the innocent readings: the D/O split is near even and "
+                     "many share a date."),
+        },
         "sales_on_repeated_uprns": len(joined),
         "max_sales_on_one_uprn": int(grouped.sales.max()),
         "median_span_years": int((grouped.last_year - grouped.first_year).median()),
@@ -297,6 +328,11 @@ def main() -> None:
     write(postcode_absent_profile(a), "12_postcode_absent_profile")
     repeats, repeat_summary = repeat_uprn_consistency(a, bridge)
     write(repeats, "13_repeat_uprn_consistency")
+    conflicts = pd.DataFrame(
+        [{"property_type_pair": k, "uprns": v, "involves_other": False}
+         for k, v in repeat_summary["type_conflicts"]["dwelling_type_pairs"].items()]
+    )
+    write(conflicts, "14_repeat_uprn_dwelling_type_conflicts")
 
     houses = counties[counties.house_unmatched_pct.notna()]
     absent = a[~a.has_postcode]

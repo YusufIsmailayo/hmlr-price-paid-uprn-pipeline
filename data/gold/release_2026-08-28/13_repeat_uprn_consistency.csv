@@ -1,5 +1,5 @@
 measure,uprns,share_of_repeated_uprns_pct,sales_affected,note
-More than one property type,208,19.72,502,HMLR files the same physical property under different types
+More than one property type,208,19.72,502,outer bound — most involve the residual Other bucket
 More than one duration,150,14.22,325,"freehold on one sale, leasehold on another"
 More than one postcode,0,0.0,0,
 More than one PAON,0,0.0,0,would indicate several dwellings under one UPRN

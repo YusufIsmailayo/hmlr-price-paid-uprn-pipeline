@@ -111,3 +111,32 @@ def test_repeated_uprns_are_one_address_not_several(context_summary, gold):
     assert df.loc["More than one SAON", "uprns"] == 0
     assert df.loc["More than one property type", "uprns"] > 0
     assert context_summary["repeated_uprns"]["max_span_years"] > 20
+
+
+def test_type_conflicts_are_split_from_the_other_bucket(context_summary, gold):
+    """
+    §7's headline. "Other" is the residual bucket, not a dwelling type, so a
+    plot recorded as O and the house later built on it recorded as D are two
+    correct records. Only conflicts between two genuine dwelling types are
+    unarguable, and the write-up must lead on that smaller number.
+    """
+    conflicts = context_summary["repeated_uprns"]["type_conflicts"]
+    assert conflicts["uprns_dwelling_type_conflict"] < conflicts["uprns_any_type_conflict"]
+    assert (conflicts["uprns_conflict_involving_other"]
+            + conflicts["uprns_dwelling_type_conflict"]
+            == conflicts["uprns_any_type_conflict"])
+    pairs = gold["14_repeat_uprn_dwelling_type_conflicts"]
+    assert not pairs["involves_other"].any()
+    assert pairs["uprns"].sum() == conflicts["uprns_dwelling_type_conflict"]
+    assert not pairs["property_type_pair"].str.contains("O").any()
+
+
+def test_the_detached_land_ordering_cannot_be_resolved(context_summary):
+    """
+    A tempting reading is that the D/O pairs are land sold first, then the house
+    built on it. Transfer-date order does not support that claim: many of those
+    UPRNs share a date, so the sequence is not well defined and the article must
+    not assert a direction.
+    """
+    conflicts = context_summary["repeated_uprns"]["type_conflicts"]
+    assert conflicts["d_o_pairs_with_tied_transfer_dates"] > 0

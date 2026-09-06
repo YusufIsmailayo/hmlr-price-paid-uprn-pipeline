@@ -198,15 +198,30 @@ That reframing makes a harder finding available:
 
 | Measure | UPRNs | Share | Sales affected |
 |---|---|---|---|
-| More than one property type | **208** | 19.7% | 502 |
-| More than one duration (freehold vs leasehold) | **150** | 14.2% | 325 |
+| More than one property type (outer bound) | 208 | 19.7% | 502 |
+| — of which involve the residual "Other" bucket | 173 | 16.4% | |
+| — **conflicts between two dwelling types** | **35** | **3.3%** | |
+| More than one duration (freehold vs leasehold) | 150 | 14.2% | 325 |
 | More than one postcode | 0 | 0.0% | 0 |
 
-Nearly a fifth of repeated UPRNs have Price Paid Data filing the same physical
-property under different property types. The commonest disagreements involve
-"Other": D/O on 78 UPRNs, O/T on 36, O/S on 35. One address — 4 The Cross,
-Halifax — is recorded Detached, Detached, Terraced, Detached, Terraced,
-Detached, Terraced across seven sales from 1996 to 2010.
+**The 208 must not be quoted alone.** "Other" is not a dwelling type; it is the
+residual bucket for land, garages, parking and non-residential property. A plot
+recorded as O and the house later built on it recorded as D are two correct
+records of different things, not the register contradicting itself. 173 of the
+208 involve O, and the commonest single combination is D/O on 78 UPRNs.
+
+Strip the bucket out and **35 UPRNs remain where two genuine dwelling types
+conflict** — F/T 7, F/S 7, D/S 6, S/T 6, D/T 5, D/F 4. That is 3.3% of repeats,
+about one in thirty, and it is unarguable in a way the 208 is not.
+
+Transfer-date order cannot rescue the larger figure either. Among the 78 D/O
+pairs the split between land-first and land-last is close to even, and 27 of the
+78 share a transfer date, so the sequence is not well defined. Neither the
+innocent reading nor the damning one can be established from this file.
+
+One address in the hard 35: 4 The Cross, Halifax (HX4 0DG, freehold throughout)
+is recorded Detached, Detached, Terraced, Detached, Terraced, Detached,
+Terraced across seven sales from 1996 to 2010.
 
 This is only askable because the look-up exists. Without a stable key there was
 no way to line up two rows describing the same building, so an inconsistency of
