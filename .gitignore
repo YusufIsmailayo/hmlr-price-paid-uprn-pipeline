@@ -13,3 +13,9 @@ data/bronze/**/*.csv
 data/bronze/**/*.txt
 data/silver/**/*.parquet
 data/gold/**/*.parquet
+
+# Article drafts live outside the repo; the published piece links back here.
+drafts/
+
+# Scratch folder the Claude desktop app creates in a connected folder.
+Claude outputs/
