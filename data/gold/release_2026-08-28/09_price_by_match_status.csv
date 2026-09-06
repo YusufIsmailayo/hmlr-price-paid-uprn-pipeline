@@ -1,0 +1,5 @@
+scope,match_status,transactions,share_of_transactions_pct,price_p25,price_median,price_p75,price_p95,price_max,total_value_gbp,share_of_value_pct
+All transactions,matched,94112,94.03,185000,284000,421124,840000,569200000,36113769274,87.31
+All transactions,unmatched,5974,5.97,160000,320000,605000,2505249,141750000,5249840953,12.69
+Category A only,matched,78875,97.15,200000,295000,430000,825000,200000000,29513968176,96.27
+Category A only,unmatched,2315,2.85,215000,375000,585000,1192999,12400000,1142839725,3.73

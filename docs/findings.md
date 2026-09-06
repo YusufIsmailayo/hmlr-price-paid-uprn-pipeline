@@ -84,7 +84,7 @@ new-build effect. It is a weighted average of a sixfold effect in houses, no
 effect in flats, and a slight protective effect in land. Reporting it alone
 would be a cleaner-looking number that says less than the table above.
 
-## 5. Two stronger predictors than new-build status
+## 5. Two stronger predictors than new-build status — with one correction
 
 | Cut | Unmatched | Risk ratio |
 |---|---|---|
@@ -96,6 +96,24 @@ would be a cleaner-looking number that says less than the table above.
 Cramér's V for PPD category is 0.273. The postcode result is effectively
 deterministic and confirms the spec's "incomplete address detail" exclusion:
 of 262 transactions with no postcode, exactly one matched.
+
+**Correction — PPD category and property type are not independent.** I first
+read the category B result as a finding standing alongside property type. It
+is not. Every one of the 6,286 "Other" transactions is category B and **none
+is category A**, so O sits wholly inside B, and the category B rate is largely
+the O rate under a different label.
+
+| Scope | n | Unmatched |
+|---|---|---|
+| A — standard price paid | 81,190 | 2.85% |
+| B — additional price paid | 18,896 | 19.36% |
+| B, of which property type O | 6,286 | 43.59% |
+| **B, net of property type O** | 12,610 | **7.29%** |
+
+Three quarters of category B's unmatched rows are the O rows. Net of them the
+category still matters — 7.29% against 2.85% — but it is a secondary effect,
+not a second finding. `06_gold_context_cuts.py` asserts the overlap on every
+run and stops the build if a category A "Other" row ever appears.
 
 ## 6. Honest verdict on the premise
 
@@ -117,7 +135,86 @@ naive chart hides a real sixfold signal behind a flat one — is a more
 interesting result than the one originally sought, and it is fully reproducible
 from this repo.
 
-## 7. What this data cannot support
+## 7. Four further cuts, once the bias question was settled
+
+From `06_gold_context_cuts.py`; tables `08`–`13` and `context_summary.json`.
+
+### Unmatched sales are not cheap scraps — they skew expensive
+
+| Scope | Median matched | Median unmatched | Unmatched share of transactions | of value |
+|---|---|---|---|---|
+| All transactions | £284,000 | £320,000 | 5.97% | **12.69%** |
+| Category A only | £295,000 | £375,000 | 2.85% | 3.73% |
+
+I expected unmatched sales to be low-value fragments. They are the opposite. The
+12.69% value share is the striking figure, but most of it is category B carrying
+portfolio transfers up to £141m, so the combined number overstates the hole and
+should not be quoted alone. The category A row is the defensible one, and it
+still points the same way.
+
+The skew is concentrated in flats: within category A a matched flat has a median
+price of £225,000 and an unmatched one £399,500. Houses barely move — detached
+£415,000 matched against £392,500 unmatched.
+
+### Geography is a null result
+
+| Cut | Counties (n ≥ 300) | Range | Median |
+|---|---|---|---|
+| All property | 77 | 2.34% – 22.61% | 4.70% |
+| Houses only | 65 | 0.25% – 3.56% | 1.32% |
+
+On all property the spread looks like a real geographic effect — Brighton and
+Hove worst at 22.61%, Greater London second at 14.71%. It is composition: those
+are flat-heavy places, and flats match poorly everywhere. Hold property type
+constant and the spread collapses, with London at 1.49% against 1.42% for the
+rest of England and Wales.
+
+That is the same trap as §3, in a second variable. Twice in one dataset, a
+plausible driver turns out to be property type wearing a disguise.
+
+### The 262 postcode-less transactions are institutional property
+
+231 of 262 are property type O and 237 are category B. `paon` is populated on
+every one, but `street` is blank on 17.6% against 1.8% across all transactions.
+These are named places rather than addresses — Staffordshire Police
+Headquarters at £10.3m, Summerhill Farm at £16.1m, "Plot 20", "Staddlestones".
+Exclusion 4 in the specification, exactly as written.
+
+### The repeated UPRNs are not what I documented them to be
+
+I recorded the 1,055 repeated UPRNs only as a double-count hazard and never
+asked what they were. The obvious reading — several dwellings under one
+identifier, the multiplicity the specification warns about — is wrong.
+**No repeated UPRN carries more than one distinct PAON or SAON.**
+They are the same address sold repeatedly — 621 of them span more than one
+calendar year, up to 31 years, and 991 of the 2,417 sales are dated before 2020.
+They arrive together because the monthly file is a delta, not because a sale
+covered several properties.
+
+The remaining third (348 UPRNs, 266 of them at an identical price as well as an
+identical date) do look like one title transferred in parts.
+
+That reframing makes a harder finding available:
+
+| Measure | UPRNs | Share | Sales affected |
+|---|---|---|---|
+| More than one property type | **208** | 19.7% | 502 |
+| More than one duration (freehold vs leasehold) | **150** | 14.2% | 325 |
+| More than one postcode | 0 | 0.0% | 0 |
+
+Nearly a fifth of repeated UPRNs have Price Paid Data filing the same physical
+property under different property types. The commonest disagreements involve
+"Other": D/O on 78 UPRNs, O/T on 36, O/S on 35. One address — 4 The Cross,
+Halifax — is recorded Detached, Detached, Terraced, Detached, Terraced,
+Detached, Terraced across seven sales from 1996 to 2010.
+
+This is only askable because the look-up exists. Without a stable key there was
+no way to line up two rows describing the same building, so an inconsistency of
+this kind was not merely unmeasured but unfalsifiable. The look-up's first
+effect is not that it cleans Price Paid Data — it is that it makes Price Paid
+Data checkable against itself.
+
+## 8. What this data cannot support
 
 - **One month only.** The look-up is forward-only and this is the first
   release in existence. Nothing here establishes a trend, and July is a single
@@ -130,3 +227,10 @@ from this repo.
   because HMLR has published nothing to audit them with.
 - **`is_matched` is not `is_matchable`.** A missing UPRN means HMLR's process
   produced no link, which is not the same as the property having no UPRN.
+- **The repeat-sale consistency result covers repeats only.** 1,055 UPRNs is
+  1.1% of the 92,750 distinct UPRNs in this release. It says nothing about the
+  attribute quality of the other 98.9%, which have one sale each and therefore
+  nothing to disagree with.
+- **County rates are one month of registrations.** Ranking counties on a single
+  delta file measures which places happened to register in July as much as
+  anything structural.

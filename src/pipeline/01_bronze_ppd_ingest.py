@@ -150,9 +150,16 @@ def fetch(source: Source, out_dir: Path) -> dict:
 def main(force: bool = False) -> Path:
     out_dir = BRONZE_DIR / RELEASE_SLUG
     metadata_path = out_dir / "metadata.json"
-    if metadata_path.exists() and not force:
+    # The manifest is tracked in git but the payloads are not, so a fresh clone
+    # arrives with metadata.json and no CSVs. I therefore skip only when the
+    # payloads are actually on disk — guarding on the manifest alone made a
+    # clone skip the download and fail in Silver on a missing file.
+    missing = [s.filename for s in SOURCES if not (out_dir / s.filename).exists()]
+    if metadata_path.exists() and not missing and not force:
         print(f"[skip] {RELEASE_SLUG}: already ingested at {out_dir}")
         return out_dir
+    if metadata_path.exists() and missing:
+        print(f"[re-ingest] manifest present but payload missing: {', '.join(missing)}")
 
     out_dir.mkdir(parents=True, exist_ok=True)
     files = [fetch(source, out_dir) for source in SOURCES]

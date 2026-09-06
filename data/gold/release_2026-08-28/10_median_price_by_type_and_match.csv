@@ -1,0 +1,6 @@
+property_type,label,transactions,median_matched,median_unmatched
+D,Detached,21801,415000.0,392500.0
+S,Semi-detached,24582,275000.0,270500.0
+T,Terraced,21256,240000.0,235000.0
+F,Flat / maisonette,13551,225000.0,399500.0
+O,Other — land / garages / non-residential,0,,

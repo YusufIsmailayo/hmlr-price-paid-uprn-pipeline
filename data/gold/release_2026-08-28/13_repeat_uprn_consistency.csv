@@ -1,0 +1,9 @@
+measure,uprns,share_of_repeated_uprns_pct,sales_affected,note
+More than one property type,208,19.72,502,HMLR files the same physical property under different types
+More than one duration,150,14.22,325,"freehold on one sale, leasehold on another"
+More than one postcode,0,0.0,0,
+More than one PAON,0,0.0,0,would indicate several dwellings under one UPRN
+More than one SAON,0,0.0,0,would indicate several flats under one UPRN
+All sales share one transfer date,348,32.99,703,consistent with one title transferred in parts
+All sales share one date and price,266,25.21,537,
+Spans more than one calendar year,621,58.86,1539,"a price history, not a same-month multi-sale"

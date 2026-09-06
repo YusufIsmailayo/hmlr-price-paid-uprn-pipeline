@@ -1,0 +1,15 @@
+attribute,value,transactions,share_of_postcode_absent_pct
+property_type,O,231,88.17
+property_type,D,16,6.11
+property_type,F,6,2.29
+property_type,S,5,1.91
+property_type,T,4,1.53
+old_new,N,255,97.33
+old_new,Y,7,2.67
+duration,F,205,78.24
+duration,L,57,21.76
+ppd_category_type,B,237,90.46
+ppd_category_type,A,25,9.54
+blank_field_share,saon,215,82.06
+blank_field_share,street,46,17.56
+blank_field_share,locality,127,48.47

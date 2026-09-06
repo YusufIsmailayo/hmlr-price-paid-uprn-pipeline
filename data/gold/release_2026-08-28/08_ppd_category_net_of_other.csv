@@ -1,0 +1,5 @@
+scope,transactions,unmatched,unmatched_pct,unmatched_ci_low_pct,unmatched_ci_high_pct
+A — standard price paid,81190,2315,2.85,2.74,2.97
+B — additional price paid,18896,3659,19.36,18.81,19.93
+"B, of which property type O",6286,2740,43.59,42.37,44.82
+"B, net of property type O",12610,919,7.29,6.85,7.75

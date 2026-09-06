@@ -25,12 +25,19 @@ against 1.03% for semi-detached houses — a risk ratio of 12.6. The new-build
 flag, by contrast, shows almost nothing on its own (6.70% vs 5.91%), and only
 reveals a sixfold effect once property type is held constant.
 
+Four further cuts sit in §7 of the findings. Unmatched sales skew expensive
+rather than cheap; county variation turns out to be composition rather than
+geography; and of the 1,055 UPRNs carrying more than one sale, 208 have Price
+Paid Data filing the same physical property under two different property types.
+That last one is only askable because the look-up exists — without a stable key,
+an inconsistency of that kind was unfalsifiable rather than merely unmeasured.
+
 ## Layout
 
 ```
 data/bronze/release_2026-08-28/   raw CSVs as served, plus provenance
 data/silver/release_2026-08-28/   fact, bridge, and validation.json
-data/gold/release_2026-08-28/     match-rate and bias tables (tracked in git)
+data/gold/release_2026-08-28/     match-rate, bias and context tables (tracked in git)
 notebooks/                        the working: 01 bronze, 02 silver, 03 gold
 src/pipeline/                     scripted equivalents, runnable in order
 docs/sources.md                   sources, field specs, licensing, scope
@@ -56,6 +63,7 @@ python3 src/pipeline/02_bronze_reconciliation_reference.py
 python3 src/pipeline/03_silver_join.py
 python3 src/pipeline/04_gold_cuts.py
 python3 src/pipeline/05_report_figures.py
+python3 src/pipeline/06_gold_context_cuts.py
 ```
 
 Bronze downloads ~23MB and is excluded from git. Pass `--force` to re-ingest.
@@ -89,6 +97,11 @@ sale to map to several UPRNs, which would change the fact table's row count on
 a left join. In this release it does not occur — 94,112 transactions match
 exactly one UPRN, none match more. The multiplicity that *does* exist runs the
 other way: 1,055 UPRNs carry between 2 and 7 transactions each.
+
+Those 1,055 are not several dwellings sharing an identifier, which is the
+reading the specification invites. None carries more than one PAON or SAON:
+they are the same address sold repeatedly across up to 31 years, arriving in one
+file because the monthly release is a delta.
 
 See [docs/data_dictionary.md](docs/data_dictionary.md).
 

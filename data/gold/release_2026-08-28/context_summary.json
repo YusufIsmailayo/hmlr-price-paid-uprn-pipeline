@@ -1,0 +1,87 @@
+{
+  "built_at_utc": "2026-09-06T00:49:28+00:00",
+  "release_slug": "release_2026-08-28",
+  "analysis_rows": 100086,
+  "ppd_category_correction": {
+    "category_b_unmatched_pct": 19.36,
+    "category_b_net_of_other_unmatched_pct": 7.29,
+    "other_rows_in_category_a": 0,
+    "note": "Property type O sits wholly inside PPD category B, so the two are not independent predictors of going unmatched."
+  },
+  "price": {
+    "unmatched_share_of_transactions_pct": 5.97,
+    "unmatched_share_of_value_pct": 12.69,
+    "median_matched_gbp": 284000,
+    "median_unmatched_gbp": 320000
+  },
+  "geography": {
+    "counties_tested": 77,
+    "all_property_min_pct": 2.34,
+    "all_property_max_pct": 22.61,
+    "houses_only_counties": 65,
+    "houses_only_min_pct": 0.25,
+    "houses_only_max_pct": 3.56,
+    "houses_only_median_pct": 1.32,
+    "note": "The all-property spread is composition, not geography. Holding property type constant collapses it."
+  },
+  "postcode_absent": {
+    "transactions": 262,
+    "matched": 1,
+    "property_type_o": 231,
+    "category_b": 237
+  },
+  "repeated_uprns": {
+    "repeated_uprns": 1055,
+    "sales_on_repeated_uprns": 2417,
+    "max_sales_on_one_uprn": 7,
+    "median_span_years": 3,
+    "max_span_years": 31,
+    "sales_dated_before_2020": 991,
+    "property_type_pairs": [
+      {
+        "property_type_pair": "D / O",
+        "uprns": 78
+      },
+      {
+        "property_type_pair": "O / T",
+        "uprns": 36
+      },
+      {
+        "property_type_pair": "O / S",
+        "uprns": 35
+      },
+      {
+        "property_type_pair": "F / O",
+        "uprns": 23
+      },
+      {
+        "property_type_pair": "F / T",
+        "uprns": 7
+      },
+      {
+        "property_type_pair": "F / S",
+        "uprns": 7
+      },
+      {
+        "property_type_pair": "D / S",
+        "uprns": 6
+      },
+      {
+        "property_type_pair": "S / T",
+        "uprns": 6
+      },
+      {
+        "property_type_pair": "D / T",
+        "uprns": 5
+      },
+      {
+        "property_type_pair": "D / F",
+        "uprns": 4
+      },
+      {
+        "property_type_pair": "F / O / T",
+        "uprns": 1
+      }
+    ]
+  }
+}
