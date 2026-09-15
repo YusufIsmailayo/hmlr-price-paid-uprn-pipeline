@@ -126,7 +126,7 @@ pip install -r requirements-dev.txt
 python3 -m pytest
 ```
 
-48 tests, and they run on a fresh clone in under a second. The suite reads only
+50 tests, and they run on a fresh clone in under a second. The suite reads only
 what is tracked in git — the Gold tables, the Silver validation report and the
 Bronze manifest — never the payload CSVs, which are ignored and cannot be
 re-downloaded once HMLR replaces the file.
