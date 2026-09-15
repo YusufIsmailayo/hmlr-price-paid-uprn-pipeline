@@ -14,6 +14,11 @@ size of the bias.
 No official match rate has been published. Every figure here is reproduced
 from the raw files by the code in this repo.
 
+The write-up is on Medium: [HM Land Registry's New Property Key Doesn't Clean
+the Data. It Makes It Checkable.](https://medium.com/@yusufismail_91982/hm-land-registrys-new-property-key-doesn-t-clean-the-data-it-makes-it-checkable-f6abd90086cd)
+Every figure quoted there is one of the tables below, and the generated charts
+are at [docs/figures.html](https://yusufismailayo.github.io/hmlr-price-paid-uprn-pipeline/figures.html).
+
 ## Status
 
 Complete. The validation gate passes and the bias question is answered —
